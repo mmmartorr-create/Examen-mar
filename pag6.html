@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 6 - Buscador de Texto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        mark {
+            background: var(--primary-color);
+            color: white;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main>
+        <h1 style="text-align: center;">Buscador de texto</h1>
+        <div class="card">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Escribe para buscar en todo el sitio...">
+                <button id="search-btn">Buscar</button>
+                <button type="button" class="btn btn-clear" style="margin-top: 0;"
+                    onclick="clearContent(['search-input'], ['results-count', 'results-container'])">Limpiar</button>
+            </div>
+            <div id="results-count" style="margin-bottom: 1rem; font-weight: bold;"></div>
+            <div id="results-container"></div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        const pages = [
+            'index.html', 'pag2.html', 'pag3.html',
+            'pag4.html', 'pag5.html', 'pag7.html', 'pag8.html'
+        ];
+
+        async function searchSite() {
+            if (window.location.protocol === 'file:') {
+                alert("Nota: El buscador requiere un servidor local (como Live Server) para funcionar correctamente debido a restricciones de seguridad del navegador con archivos locales.");
+            }
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('results-container');
+            const countDisplay = document.getElementById('results-count');
+
+            if (!query) return;
+
+            resultsContainer.innerHTML = 'Buscando...';
+            let resultsFound = 0;
+            let finalHTML = '';
+
+            for (const page of pages) {
+                try {
+                    const response = await fetch(page);
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const text = doc.body.innerText.toLowerCase();
+
+                    if (text.includes(query)) {
+                        resultsFound++;
+                        const startIndex = text.indexOf(query);
+                        const snippet = doc.body.innerText.substring(
+                            Math.max(0, startIndex - 40),
+                            Math.min(text.length, startIndex + 100)
+                        );
+
+                        finalHTML += `
+                            <div class="result-item">
+                                <h3><a href="${page}" style="color: var(--primary-color);">${page}</a></h3>
+                                <p>..."${snippet.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`)}"...</p>
+                            </div>
+                        `;
+                    }
+                } catch (e) {
+                    console.error("Error buscando en", page, e);
+                }
+            }
+
+            countDisplay.innerText = `Se encontraron coincidencias en ${resultsFound} páginas.`;
+            resultsContainer.innerHTML = resultsFound > 0 ? finalHTML : '<p>No se encontraron resultados.</p>';
+        }
+
+        document.getElementById('search-btn').addEventListener('click', searchSite);
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchSite();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 8 - Tienda Virtual</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .store-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .filter-sidebar {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: #334155;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        input[type="range"] {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main>
+        <h1 style="text-align: center;">Tienda Virtual</h1>
+        <div class="store-layout">
+            <aside class="filter-sidebar">
+                <h3>Filtros</h3>
+
+                <div class="filter-group">
+                    <label>Precio Mínimo: $<span id="min-price-val">0</span></label>
+                    <input type="range" id="min-price-filter" min="0" max="1000" value="0" style="width: 100%;">
+                </div>
+
+                <div class="filter-group">
+                    <label>Precio Máximo: $<span id="max-price-val">1000</span></label>
+                    <input type="range" id="max-price-filter" min="0" max="1000" value="1000" style="width: 100%;">
+                </div>
+
+                <p style="margin-top: 1rem; color: var(--text-dim); font-size: 0.8rem;">
+                    Mostrando <span id="item-count">55</span> artículos
+                </p>
+            </aside>
+
+            <div class="products-grid" id="products-container">
+                <!-- Productos inyectados por JS -->
+            </div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        const products = [];
+        const categories = ["Electrónica", "Moda", "Hogar", "Deportes", "Gadgets"];
+
+        for (let i = 1; i <= 55; i++) {
+            products.push({
+                id: i,
+                name: `Articulo ${i}`,
+                category: categories[i % categories.length],
+                price: Math.floor(Math.random() * 950) + 50,
+                img: `https://picsum.photos/seed/${i + 100}/200/200`
+            });
+        }
+
+        function renderProducts(minPrice, maxPrice) {
+            const container = document.getElementById('products-container');
+            const filtered = products
+                .filter(p => p.price >= minPrice && p.price <= maxPrice)
+                .sort((a, b) => a.price - b.price);
+
+            container.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.name}">
+                    <h4>${p.name}</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-dim);">${p.category}</p>
+                    <p class="price">$${p.price}</p>
+                    <button class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Añadir</button>
+                </div>
+            `).join('');
+
+            document.getElementById('item-count').innerText = filtered.length;
+        }
+
+        const minFilter = document.getElementById('min-price-filter');
+        const maxFilter = document.getElementById('max-price-filter');
+        const minValDisplay = document.getElementById('min-price-val');
+        const maxValDisplay = document.getElementById('max-price-val');
+
+        function updateFilters() {
+            let minP = parseInt(minFilter.value);
+            let maxP = parseInt(maxFilter.value);
+
+            // Evitar que el mínimo supere al máximo
+            if (minP > maxP) {
+                minP = maxP;
+                minFilter.value = minP;
+            }
+
+            minValDisplay.innerText = minP;
+            maxValDisplay.innerText = maxP;
+            renderProducts(minP, maxP);
+        }
+
+        minFilter.addEventListener('input', updateFilters);
+        maxFilter.addEventListener('input', updateFilters);
+
+        renderProducts(0, 1000);
+    </script>
+</body>
+
+</html>

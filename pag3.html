@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 3 - Calendario y PDF</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            background: white;
+        }
+
+        .date-display {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main>
+        <h1 style="text-align: center;">Calendario y Archivos PDF</h1>
+        <div class="card">
+            <label>Selecciona una fecha (Calendario):</label>
+            <input type="date" id="date-input">
+
+            <div id="date-result-container" style="display: none;">
+                <p>Fecha seleccionada:</p>
+                <div id="date-display" class="date-display"></div>
+            </div>
+
+            <label style="margin-top: 2rem; display: block;">Carga un archivo PDF:</label>
+            <input type="file" id="pdf-file" accept="application/pdf">
+
+            <div id="pdf-container" style="display: none;">
+                <h3>Vista previa del PDF:</h3>
+                <iframe id="pdf-viewer"></iframe>
+            </div>
+            <button type="button" class="btn btn-clear"
+                onclick="clearContent(['date-input', 'pdf-file'], ['date-display', 'pdf-viewer'], ['date-result-container', 'pdf-container'])">Limpiar
+                Contenido</button>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        // Calendar Logic
+        const dateInput = document.getElementById('date-input');
+        const dateDisplay = document.getElementById('date-display');
+        const dateContainer = document.getElementById('date-result-container');
+
+        dateInput.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val) {
+                // Formatting for better display (YYYY-MM-DD -> DD/MM/YYYY)
+                const parts = val.split('-');
+                dateDisplay.textContent = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                dateContainer.style.display = 'block';
+            }
+        });
+
+        // PDF Preview Logic
+        setupFilePreview('pdf-file', 'url', 'pdf-viewer');
+    </script>
+</body>
+
+</html>

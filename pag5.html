@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 5 - Texto de 255 Palabras</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .text-narrative {
+            line-height: 2;
+            font-size: 1.2rem;
+            text-align: justify;
+            color: var(--text-color);
+            padding: 3.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .word-count {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main>
+        <h1 style="text-align: center;">La Evolución del Pensamiento Digital</h1>
+        <div class="card">
+            <div class="text-narrative" id="narrative">
+                En la vasta red de conocimientos que define nuestra era moderna, la tecnología ha dejado de ser una
+                simple herramienta para convertirse en una extensión intrínseca del ser humano. Cada línea de código
+                escrita y cada algoritmo diseñado reflejan una parte fundamental de nuestra ambición por trascender los
+                límites físicos. El mundo digital opera bajo una lógica matemática implacable, pero es alimentado por la
+                creatividad más profunda y abstracta de la mente. Observamos cómo las máquinas aprenden, procesan y
+                ejecutan tareas que antes parecían exclusivas del ingenio biológico, generando un puente invisible entre
+                el silicio y las neuronas. Esta simbiosis tecnológica transforma no solo cómo trabajamos, sino
+                fundamentalmente cómo percibimos la realidad misma. La inmediatez de la información nos obliga a
+                procesar estímulos a una velocidad vertiginosa, desafiando nuestra capacidad de atención y paciencia
+                reflexiva. Sin embargo, en medio de este torbellino de bits y bytes, la esencia de la comunicación sigue
+                siendo la misma: la búsqueda constante de conexión. El diseño de interfaces elegantes busca suavizar la
+                frialdad de los circuitos, intentando que la experiencia del usuario sea tan orgánica como un suspiro.
+                Al final del camino, el desarrollo de software no se trata únicamente de eficiencia o potencia de
+                procesamiento, sino de facilitar la vida y expandir los horizontes de la imaginación colectiva. Somos
+                los arquitectos de un mañana que se construye en tiempo real, donde cada clic es un testimonio de
+                nuestra presencia en este océano infinito de datos interconectados que llamamos internet.
+            </div>
+            <div class="word-count" id="count-display">Contando palabras...</div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        countWords('narrative', 'count-display', 255);
+    </script>
+</body>
+
+</html>

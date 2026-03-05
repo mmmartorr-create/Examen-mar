@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 1 - Inicio</title>
+    <meta name="description"
+        content="Dashboard principal del sitio web de 8 páginas. Accede a todas las secciones aquí.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .grid-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .nav-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-top: 3px solid var(--primary-color);
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            border-color: var(--secondary-color);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav">
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main style="padding-top: 2rem;">
+        <header
+            style="text-align: center; margin-bottom: 4rem; position: relative; padding: 5rem 1rem; border-radius: 32px; background: radial-gradient(circle at center, rgba(167, 139, 250, 0.15) 0%, transparent 70%); border: 1px solid var(--glass-border);">
+            <h1
+                style="font-size: 6rem; letter-spacing: -3px; margin-bottom: 0.5rem; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1)); background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">
+                Bienvenido
+            </h1>
+            <div
+                style="width: 120px; height: 6px; background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); margin: 2rem auto; border-radius: 3px; box-shadow: 0 4px 10px rgba(167, 139, 250, 0.3);">
+            </div>
+        </header>
+
+        <div class="grid-nav">
+            <a href="pag2.html" class="nav-card">
+                <h2>Página 2</h2>
+
+            </a>
+            <a href="pag3.html" class="nav-card">
+                <h2>Página 3</h2>
+
+            </a>
+            <a href="pag4.html" class="nav-card">
+                <h2>Página 4</h2>
+
+            </a>
+            <a href="pag5.html" class="nav-card">
+                <h2>Página 5</h2>
+
+            </a>
+            <a href="pag6.html" class="nav-card">
+                <h2>Página 6</h2>
+
+            </a>
+            <a href="pag7.html" class="nav-card">
+                <h2>Página 7</h2>
+
+            </a>
+            <a href="pag8.html" class="nav-card">
+                <h2>Página 8</h2>
+
+            </a>
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>

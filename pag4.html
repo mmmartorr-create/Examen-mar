@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 4 - Multimedia</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .multimedia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .media-prev {
+            max-width: 100%;
+            border-radius: 8px;
+            display: none;
+            margin-top: 1rem;
+        }
+
+        video.media-prev {
+            width: 100%;
+        }
+
+        #color-preview {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Página 1</a>
+        <a href="pag2.html">Página 2</a>
+        <a href="pag3.html">Página 3</a>
+        <a href="pag4.html">Página 4</a>
+        <a href="pag5.html">Página 5</a>
+        <a href="pag6.html">Página 6</a>
+        <a href="pag7.html">Página 7</a>
+        <a href="pag8.html">Página 8</a>
+    </nav>
+
+    <main>
+        <h1 style="text-align: center;">Multimedia</h1>
+        <div class="card">
+            <label>Elige un color:</label>
+            <input type="color" id="color-input" style="width: 100px; height: 50px; cursor: pointer;">
+            <div id="color-preview"></div>
+
+            <div class="multimedia-grid">
+                <div class="card" style="margin-top: 0;">
+                    <h3>Imagen</h3>
+                    <input type="file" id="img-file" accept="image/*">
+                    <img id="img-prev" class="media-prev">
+                </div>
+
+                <div class="card" style="margin-top: 0;">
+                    <h3>Audio</h3>
+                    <input type="file" id="audio-file" accept="audio/*">
+                    <audio id="audio-prev" controls class="media-prev"></audio>
+                </div>
+
+                <div class="card" style="margin-top: 0; grid-column: 1 / -1;">
+                    <h3>Video</h3>
+                    <input type="file" id="video-file" accept="video/*">
+                    <video id="video-prev" controls class="media-prev"></video>
+                </div>
+            </div>
+            <button type="button" class="btn btn-clear"
+                onclick="clearContent(['color-input', 'img-file', 'audio-file', 'video-file'], ['color-preview', 'img-prev', 'audio-prev', 'video-prev'])">Limpiar
+                Multimedia</button>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        // Color
+        document.getElementById('color-input').addEventListener('input', (e) => {
+            document.getElementById('color-preview').style.backgroundColor = e.target.value;
+        });
+
+        setupFilePreview('img-file', 'url', 'img-prev');
+        setupFilePreview('audio-file', 'url', 'audio-prev');
+        setupFilePreview('video-file', 'url', 'video-prev');
+    </script>
+</body>
+
+</html>
